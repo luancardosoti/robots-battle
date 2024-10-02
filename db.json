@@ -1,164 +1,67 @@
 {
-  "monsters": [
+  "robots": [
     {
-      "name": "Zargoth",
-      "attack": 85,
-      "defense": 70,
-      "speed": 60,
-      "hp": 150,
-      "image_url": "https://robohash.org/Zargoth"
+      "id": "3600",
+      "name": "robot 2",
+      "attack": 8,
+      "defense": 8,
+      "speed": 88,
+      "hp": 88,
+      "imageUrl": "https://robohash.org/875ae8.png"
     },
     {
-      "name": "Drakthor",
-      "attack": 90,
-      "defense": 65,
-      "speed": 55,
-      "hp": 140,
-      "image_url": "https://robohash.org/Drakthor"
-    },
-    {
-      "name": "Xenorax",
-      "attack": 75,
-      "defense": 80,
-      "speed": 50,
-      "hp": 160,
-      "image_url": "https://robohash.org/Xenorax"
-    },
-    {
-      "name": "Fangor",
-      "attack": 80,
-      "defense": 70,
-      "speed": 65,
-      "hp": 155,
-      "image_url": "https://robohash.org/Fangor"
-    },
-    {
-      "name": "Kraigon",
-      "attack": 85,
-      "defense": 75,
-      "speed": 70,
-      "hp": 140,
-      "image_url": "https://robohash.org/Kraigon"
-    },
-    {
-      "name": "Blightfang",
-      "attack": 95,
-      "defense": 60,
-      "speed": 50,
-      "hp": 145,
-      "image_url": "https://robohash.org/Blightfang"
-    },
-    {
-      "name": "Oozog",
-      "attack": 70,
-      "defense": 85,
-      "speed": 40,
-      "hp": 170,
-      "image_url": "https://robohash.org/Oozog"
-    },
-    {
-      "name": "Skarn",
-      "attack": 78,
-      "defense": 80,
-      "speed": 58,
-      "hp": 150,
-      "image_url": "https://robohash.org/Skarn"
-    },
-    {
-      "name": "Ravok",
+      "id": "fc05",
+      "name": "luan",
       "attack": 88,
-      "defense": 68,
-      "speed": 60,
-      "hp": 140,
-      "image_url": "https://robohash.org/Ravok"
+      "defense": 66,
+      "speed": 77,
+      "hp": 55,
+      "imageUrl": "https://robohash.org/w9pug.png"
     },
     {
-      "name": "Gludor",
-      "attack": 83,
-      "defense": 73,
-      "speed": 55,
-      "hp": 150,
-      "image_url": "https://robohash.org/Gludor"
+      "id": "8c18",
+      "name": "luan",
+      "attack": 22,
+      "defense": 22,
+      "speed": 22,
+      "hp": 22,
+      "imageUrl": "https://robohash.org/k54ycx.png"
     },
     {
-      "name": "Terrorclaw",
-      "attack": 90,
-      "defense": 65,
-      "speed": 70,
-      "hp": 135,
-      "image_url": "https://robohash.org/Terrorclaw"
+      "id": "0df6",
+      "name": "luazin",
+      "attack": 18,
+      "defense": 18,
+      "speed": 17,
+      "hp": 190,
+      "imageUrl": "https://robohash.org/onyfuq.png"
     },
     {
-      "name": "Venomspike",
-      "attack": 85,
-      "defense": 60,
-      "speed": 75,
-      "hp": 145,
-      "image_url": "https://robohash.org/Venomspike"
+      "id": "f65e",
+      "name": "lua top",
+      "attack": 12,
+      "defense": 12,
+      "speed": 1,
+      "hp": 122,
+      "imageUrl": "https://robohash.org/2d45x.png"
     },
     {
-      "name": "Gorgoth",
-      "attack": 80,
-      "defense": 72,
-      "speed": 65,
-      "hp": 160,
-      "image_url": "https://robohash.org/Gorgoth"
+      "id": "1d68",
+      "name": "robot top ",
+      "attack": 12,
+      "defense": 14,
+      "speed": 12,
+      "hp": 11,
+      "imageUrl": "https://robohash.org/usiu8o.png"
     },
     {
-      "name": "Krelgor",
-      "attack": 82,
-      "defense": 78,
-      "speed": 60,
-      "hp": 155,
-      "image_url": "https://robohash.org/Krelgor"
-    },
-    {
-      "name": "Volkraz",
-      "attack": 88,
-      "defense": 75,
-      "speed": 50,
-      "hp": 150,
-      "image_url": "https://robohash.org/Volkraz"
-    },
-    {
-      "name": "Brimscar",
-      "attack": 92,
-      "defense": 70,
-      "speed": 58,
-      "hp": 145,
-      "image_url": "https://robohash.org/Brimscar"
-    },
-    {
-      "name": "Shadowfang",
-      "attack": 85,
-      "defense": 65,
-      "speed": 60,
-      "hp": 150,
-      "image_url": "https://robohash.org/Shadowfang"
-    },
-    {
-      "name": "Krakenjaw",
-      "attack": 90,
-      "defense": 68,
-      "speed": 55,
-      "hp": 135,
-      "image_url": "https://robohash.org/Krakenjaw"
-    },
-    {
-      "name": "Gravelock",
-      "attack": 87,
-      "defense": 70,
-      "speed": 65,
-      "hp": 140,
-      "image_url": "https://robohash.org/Gravelock"
-    },
-    {
-      "name": "Morgoroth",
-      "attack": 93,
-      "defense": 60,
-      "speed": 55,
-      "hp": 145,
-      "image_url": "https://robohash.org/Morgoroth"
+      "id": "733a",
+      "name": "robot top ",
+      "attack": 12,
+      "defense": 14,
+      "speed": 12,
+      "hp": 11,
+      "imageUrl": "https://robohash.org/jalsk.png"
     }
   ]
 }
