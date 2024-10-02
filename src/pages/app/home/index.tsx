@@ -9,7 +9,7 @@ import { RobotCard } from './components/robot-card'
 export function Home() {
   const [openRobotForm, setOpenRobotForm] = useState(false)
 
-  const { data: robots = [], isLoading: isLoadingRobots } = useQuery({
+  const { data: robots = [] } = useQuery({
     queryKey: ['robots'],
     queryFn: robotService.list,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -22,7 +22,7 @@ export function Home() {
   return (
     <div className="space-y-4">
       <div className="flex">
-        <h2>Filtros</h2>
+        {/* <h2>Filtros</h2> */}
 
         <Dialog open={openRobotForm} onOpenChange={setOpenRobotForm}>
           <DialogTrigger asChild>
@@ -38,7 +38,7 @@ export function Home() {
         </Dialog>
       </div>
 
-      <section className="space-y-2">
+      <section className="space-y-4">
         <h2 className="text-2xl">Lista de robôs</h2>
 
         <ul className="grid grid-cols-4 gap-8">

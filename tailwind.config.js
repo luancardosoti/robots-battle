@@ -63,6 +63,9 @@ export default {
 			},
 			fontFamily: {
 				"robot": ["Orbitron", 'sans-serif']
+			},
+			backgroundImage: {
+				'battle-versus': "url('/src/assets/versus.jpg')",
 			}
 		}
 	},

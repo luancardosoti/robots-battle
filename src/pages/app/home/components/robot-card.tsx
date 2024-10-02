@@ -1,12 +1,19 @@
+import { cn } from '@/lib/utils'
 import type { IRobot } from '@/services/robot-service'
 
-interface RobotCardProps {
+export interface RobotCardProps extends React.HTMLProps<HTMLDivElement> {
   robot: IRobot
 }
 
-export function RobotCard({ robot }: RobotCardProps) {
+export function RobotCard({ robot, ...rest }: RobotCardProps) {
   return (
-    <div className="font-robot font-bold flex flex-col items-center shadow-lg rounded-md p-4 border-2">
+    <div
+      {...rest}
+      className={cn(
+        'font-robot font-bold flex flex-col items-center shadow-lg rounded-md p-4 border-2 hover:brightness-125 hover:scale-105 transition-all hover:border-foreground hover:cursor-pointer',
+        rest.className
+      )}
+    >
       <img className="w-40 h-40" src={robot.imageUrl} alt={robot.name} />
       <h3 className="text-2xl">{robot.name}</h3>
       <div className="mt-4 flex justify-between gap-4 text-sm">
