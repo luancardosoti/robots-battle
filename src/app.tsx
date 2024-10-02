@@ -1,7 +1,11 @@
+import { RouterProvider } from 'react-router-dom'
+import { ThemeProvider } from './components/theme-provider'
+import { router } from './routes'
+
 export function App() {
   return (
-    <>
-      <h1 className="text-2xl">luan</h1>
-    </>
+    <ThemeProvider defaultTheme="dark" storageKey="robots.battle@theme">
+      <RouterProvider router={router} />
+    </ThemeProvider>
   )
 }
