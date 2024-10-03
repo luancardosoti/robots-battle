@@ -10,7 +10,7 @@ export function RobotCard({ robot, ...rest }: RobotCardProps) {
     <div
       {...rest}
       className={cn(
-        'font-robot font-bold flex flex-col items-center shadow-lg rounded-md p-4 border-2 hover:brightness-125 hover:scale-105 transition-all hover:border-foreground hover:cursor-pointer',
+        'font-bold flex flex-col items-center shadow-lg rounded-md p-4 border-2 hover:brightness-125 hover:scale-105 transition-all hover:border-foreground hover:cursor-pointer',
         rest.className
       )}
     >

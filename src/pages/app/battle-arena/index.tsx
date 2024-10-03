@@ -1,11 +1,14 @@
 import { Button } from '@/components/ui/button'
-import { robotService } from '@/services/robot-service'
+import { robotService, type IRobot } from '@/services/robot-service'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { cn } from '@/lib/utils'
 import { RobotCard } from '../home/components/robot-card'
+import { battleRobots } from '@/utils/battle-robots'
+import { BattleArenaBox } from './components/battle-arena-box'
+import { WinnerRobotInfo } from './components/winner-robot-info'
 
 export function BattleArena() {
   const { data: robots = [] } = useQuery({
@@ -14,124 +17,89 @@ export function BattleArena() {
     staleTime: 1000 * 60 * 5, // 5 minutes
   })
 
-  const [redRobotOpponentId, setRedRobotOpponentId] = useState<string | null>(
-    null
-  )
-  const [yellowRobotOpponentId, setYellowRobotOpponentId] = useState<
-    string | null
-  >(null)
-  const [isSelectingRedOpponent, setIsSelectingRedOpponent] =
-    useState<boolean>(false)
-  const [isSelectingYellowOpponent, setIsSelectingYellowOpponent] =
+  const [redRobot, setRedRobot] = useState<IRobot | null>(null)
+  const [yellowRobot, setYellowRobot] = useState<IRobot | null>(null)
+  const [winnerRobot, setWinnerRobot] = useState<IRobot | null>(null)
+
+  const [isSelectingRedRobot, setIsSelectingRedRobot] = useState<boolean>(false)
+  const [isSelectingYellowRobot, setIsSelectingYellowRobot] =
     useState<boolean>(false)
 
-  function handleToggleRedOpponentCheckBox(value: Checkbox.CheckedState) {
-    setIsSelectingYellowOpponent(false)
-    setIsSelectingRedOpponent(value === 'indeterminate' ? false : value)
-  }
-
-  function handleToggleYellowOpponentCheckBox(value: Checkbox.CheckedState) {
-    setIsSelectingRedOpponent(false)
-    setIsSelectingYellowOpponent(value === 'indeterminate' ? false : value)
-  }
-
-  const redRobot = robots.find(robot => robot.id === redRobotOpponentId)
-  const yellowRobot = robots.find(robot => robot.id === yellowRobotOpponentId)
-
-  const isSelectingOpponent =
-    isSelectingRedOpponent || isSelectingYellowOpponent
-
-  function handleSelectOpponent(robotId: string) {
-    if (isSelectingRedOpponent) {
-      setRedRobotOpponentId(robotId)
-      setIsSelectingRedOpponent(false)
+  function handleToggleRobotCheckBox(
+    type: 'red' | 'yellow',
+    value: Checkbox.CheckedState
+  ) {
+    if (type === 'red') {
+      setIsSelectingYellowRobot(false)
+      setIsSelectingRedRobot(value === 'indeterminate' ? false : value)
     }
 
-    if (isSelectingYellowOpponent) {
-      setYellowRobotOpponentId(robotId)
-      setIsSelectingYellowOpponent(false)
+    if (type === 'yellow') {
+      setIsSelectingRedRobot(false)
+      setIsSelectingYellowRobot(value === 'indeterminate' ? false : value)
+    }
+  }
+
+  const isSelectingRobot = isSelectingRedRobot || isSelectingYellowRobot
+
+  function handleSelectRobot(robotId: string) {
+    const robotSelected = robots.find(robot => robot.id === robotId)
+    if (!robotSelected) return
+
+    if (isSelectingRedRobot) {
+      setRedRobot(robotSelected)
+      setIsSelectingRedRobot(false)
+    }
+
+    if (isSelectingYellowRobot) {
+      setYellowRobot(robotSelected)
+      setIsSelectingYellowRobot(false)
     }
   }
 
   const robotsAvailable = robots.filter(robot => {
-    return robot.id !== redRobotOpponentId && robot.id !== yellowRobotOpponentId
+    return robot.id !== redRobot?.id && robot.id !== yellowRobot?.id
   })
 
-  const shouldStartBattle = redRobot && yellowRobot
+  const shouldStartBattle = !!redRobot && !!yellowRobot
+
+  function handleBattle() {
+    if (!shouldStartBattle) return
+
+    const winnerRobot = battleRobots(redRobot, yellowRobot)
+    setWinnerRobot(winnerRobot)
+  }
+
+  function handleResetBattle() {
+    setRedRobot(null)
+    setYellowRobot(null)
+    setWinnerRobot(null)
+  }
 
   return (
     <div className="space-y-4">
-      <div className="border rounded-md flex h-96 bg-battle-versus bg-cover bg-center relative">
-        {redRobot && (
-          <div className="absolute left-0 top-0 bottom-0 font-robot font-bold flex flex-col items-center rounded-md px-4">
-            <img
-              className="w-40 h-40 rounded-full"
-              src={redRobot.imageUrl}
-              alt={redRobot.name}
-            />
-            <h3 className="mt-2 text-2xl bg-red-800 py-1 px-4 rounded-full shadow-lg capitalize">
-              {redRobot.name}
-            </h3>
-            <div className="mt-4 flex justify-between gap-4 text-lg bg-red-800 shadow-lg p-2 rounded-md">
-              <div>
-                <p>Ataque: {redRobot.attack}</p>
-                <p>Defesa: {redRobot.defense}</p>
-              </div>
-
-              <div>
-                <p>Velocidade: {redRobot.speed}</p>
-                <p>HP: {redRobot.hp}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {yellowRobot && (
-          <div className="absolute right-0 top-0 bottom-0 font-robot font-bold flex flex-col items-center rounded-md px-4">
-            <img
-              className="w-40 h-40 rounded-full"
-              src={yellowRobot.imageUrl}
-              alt={yellowRobot.name}
-            />
-            <h3 className="mt-2 text-2xl bg-yellow-600 py-1 px-4 rounded-full shadow-lg capitalize">
-              {yellowRobot.name}
-            </h3>
-            <div className="mt-4 flex justify-between gap-4 text-lg bg-yellow-600 p-2 rounded-md">
-              <div>
-                <p>Ataque: {yellowRobot.attack}</p>
-                <p>Defesa: {yellowRobot.defense}</p>
-              </div>
-
-              <div>
-                <p>Velocidade: {yellowRobot.speed}</p>
-                <p>HP: {yellowRobot.hp}</p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      <BattleArenaBox redRobot={redRobot} yellowRobot={yellowRobot} />
 
       <div className="grid grid-cols-3">
         <Checkbox.Root
-          checked={isSelectingRedOpponent}
-          onCheckedChange={handleToggleRedOpponentCheckBox}
+          checked={isSelectingRedRobot}
+          onCheckedChange={value => handleToggleRobotCheckBox('red', value)}
           asChild
         >
           <Button
-            size="lg"
-            variant="outline"
+            disabled={!!winnerRobot}
             className={cn(
               'mr-auto text-foreground text-md font-medium h-14 rounded-full',
               {
-                'bg-red-800/20 hover:bg-red-800/40': !isSelectingRedOpponent,
-                'bg-red-800/80 hover:bg-red-800': isSelectingRedOpponent,
+                'bg-red-800/20 hover:bg-red-800/40': !isSelectingRedRobot,
+                'bg-red-800/80 hover:bg-red-800': isSelectingRedRobot,
               }
             )}
           >
             <Checkbox.Indicator className="absolute w-full h-full flex items-center justify-center" />
 
-            <strong>
-              {isSelectingRedOpponent
+            <strong className="font-bold">
+              {isSelectingRedRobot
                 ? 'Selecionando'
                 : redRobot
                   ? 'Trocar'
@@ -142,34 +110,33 @@ export function BattleArena() {
         </Checkbox.Root>
 
         <Button
-          disabled={!shouldStartBattle}
-          className="h-14 bg-gradient-to-r from-red-500 to-yellow-400  hover:bg-gradient-to-l shadow-2xl rounded-full font-bold font-robot text-2xl"
+          disabled={!shouldStartBattle || !!winnerRobot}
+          onClick={handleBattle}
+          className="h-14 bg-gradient-to-r from-red-500 to-yellow-400  hover:bg-gradient-to-l shadow-2xl rounded-full font-bold text-2xl"
         >
           Começar batalha
         </Button>
 
         <Checkbox.Root
-          checked={isSelectingYellowOpponent}
-          onCheckedChange={handleToggleYellowOpponentCheckBox}
+          checked={isSelectingYellowRobot}
+          onCheckedChange={value => handleToggleRobotCheckBox('yellow', value)}
           asChild
         >
           <Button
-            size="lg"
-            variant="outline"
+            disabled={!!winnerRobot}
             className={cn(
               'ml-auto text-foreground text-md font-medium h-14 rounded-full',
               {
                 'bg-yellow-800/20 hover:bg-yellow-800/40':
-                  !isSelectingYellowOpponent,
-                'bg-yellow-800/80 hover:bg-yellow-800':
-                  isSelectingYellowOpponent,
+                  !isSelectingYellowRobot,
+                'bg-yellow-800/80 hover:bg-yellow-800': isSelectingYellowRobot,
               }
             )}
           >
             <Checkbox.Indicator className="absolute w-full h-full flex items-center justify-center" />
 
-            <strong>
-              {isSelectingYellowOpponent
+            <strong className="font-bold">
+              {isSelectingYellowRobot
                 ? 'Selecionando'
                 : yellowRobot
                   ? 'Trocar'
@@ -180,16 +147,23 @@ export function BattleArena() {
         </Checkbox.Root>
       </div>
 
-      {isSelectingOpponent && (
+      {isSelectingRobot && (
         <div className="mt-4 grid grid-cols-4 gap-8">
           {robotsAvailable.map(robot => (
             <RobotCard
               key={robot.id}
-              onClick={() => handleSelectOpponent(robot.id)}
+              onClick={() => handleSelectRobot(robot.id)}
               robot={robot}
             />
           ))}
         </div>
+      )}
+
+      {winnerRobot && (
+        <WinnerRobotInfo
+          winnerRobot={winnerRobot}
+          handleResetBattle={handleResetBattle}
+        />
       )}
     </div>
   )
