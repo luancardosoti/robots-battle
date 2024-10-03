@@ -9,3 +9,4 @@
 2. Informações do algoritmo no site
 3. Histórico das últimas batalhas
 4. Testes
+5. Responsividade
