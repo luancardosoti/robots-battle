@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import { Link, useLocation } from 'react-router-dom'
+import { Icons } from './icons'
 
 export function MainNav() {
   const { pathname } = useLocation()
@@ -7,6 +8,7 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link to="/" className="mr-4 flex items-center space-x-2 lg:mr-6">
+        <Icons.robot className="h-10 w-10" />
         <h1 className="font-bold text-4xl">Robots.battle</h1>
       </Link>
       <nav className="flex items-center gap-4 text-sm lg:gap-6">
